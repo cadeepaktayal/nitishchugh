@@ -258,12 +258,8 @@
         ctx.textAlign = "center"; // Center-align the text horizontally
         ctx.textBaseline = "top"; // Align text from the top of the canvas
 
-        const ox =
-          (canvas.width) / 2 +
-          canvas.width * (28 / 100)
-        const oy =
-          (canvas.height) / 2 +
-          canvas.height * (3 / 100)
+        const ox = canvas.width / 2 + canvas.width * (28 / 100);
+        const oy = canvas.height / 2 + canvas.height * (3 / 100);
         ctx.fillText(guestName, ox, oy); // Draw the name slightly below the top edge
       }
 
@@ -367,6 +363,34 @@
       });
 
       canvas.addEventListener("mouseleave", () => {
+        isDragging = false;
+      });
+
+      // For touch events (for mobile)
+      canvas.addEventListener("touchstart", (e) => {
+        e.preventDefault(); // Prevent default touch behavior (e.g., scrolling)
+        isDragging = true;
+        startX = e.touches[0].clientX - canvas.offsetLeft;
+        startY = e.touches[0].clientY - canvas.offsetTop;
+      });
+
+      canvas.addEventListener("touchmove", (e) => {
+        if (isDragging && guestImage) {
+          const dx = e.touches[0].clientX - canvas.offsetLeft - startX;
+          const dy = e.touches[0].clientY - canvas.offsetTop - startY;
+          offsetX += dx;
+          offsetY += dy;
+          startX = e.touches[0].clientX - canvas.offsetLeft;
+          startY = e.touches[0].clientY - canvas.offsetTop;
+          drawCanvas();
+        }
+      });
+
+      canvas.addEventListener("touchend", () => {
+        isDragging = false;
+      });
+
+      canvas.addEventListener("touchcancel", () => {
         isDragging = false;
       });
 
