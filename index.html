@@ -259,13 +259,11 @@
         ctx.textBaseline = "top"; // Align text from the top of the canvas
 
         const ox =
-          (canvas.width - guestImage.width * 0.4) / 2 +
-          canvas.width * (28 / 100) +
-          canvas.width * (22 / 100);
+          (canvas.width) / 2 +
+          canvas.width * (28 / 100)
         const oy =
-          (canvas.height - guestImage.height * 0.4) / 2 +
-          canvas.height * (30 / 100) -
-          canvas.height * (8 / 100);
+          (canvas.height) / 2 +
+          canvas.height * (3 / 100)
         ctx.fillText(guestName, ox, oy); // Draw the name slightly below the top edge
       }
 
